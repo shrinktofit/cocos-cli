@@ -3,5 +3,8 @@ const { join } = require('path');
 
 const input = join(__dirname, '../src/core/configuration/@types/cocos.config.d.ts');
 const output = join(__dirname, '../dist/cocos.config.schema.json');
-execSync(`npx --yes typescript-json-schema ${input} COCOS_CONFIG -o ${output} --noExtraProps --skipLibCheck`);
+execSync(`pnpm exec typescript-json-schema ${input} COCOS_CONFIG -o ${output} --noExtraProps --skipLibCheck`, {
+  stdio: 'inherit',
+  cwd: __dirname,
+});
 console.log(`✅ Schema 文件已生成: ${output}`);

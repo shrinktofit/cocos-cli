@@ -1,6 +1,7 @@
 const fse = require('fs-extra');
 const path = require('path');
 const utils = require('./utils');
+const { engineDir } = require('./metadata.js');
 
 if (!utils.hasDevelopmentEnvironment()) return;
 
@@ -43,21 +44,15 @@ module.exports = modsMgr.syncImport('${moduleId}');
 
     console.time('Bundle node_modules/cc');
 
-    const enginePath = path.join(__dirname, '../packages/engine');
+    const enginePath = engineDir;
 
     const ccTemplatePath = path.join(__dirname, '../packages/cc-module/statics/cc-template.d.ts');
     const ccPath = path.join(__dirname, '../packages/cc-module/cc.d.ts');
 
-    const ccdPath = path.join(enginePath, '/bin/.declarations/cc.d.ts');
-    const ccEditorExportsDtsPath = path.join(__dirname, '../packages/engine','./bin/.declarations/cc.editor.d.ts');
-
-    const relativeCcdPath = path.relative(path.dirname(ccPath), ccdPath);
-    const relativeCcEditorExportsDtsPath = path.relative(path.dirname(ccPath), ccEditorExportsDtsPath);
-
     fse.writeFileSync(
         ccPath,
-        `/// <reference path="${relativeCcdPath}"/>
-/// <reference path="${relativeCcEditorExportsDtsPath}"/>\n
+        `/// <reference path="${'./node_modules/@cocos/creator-types/engine/cc.d.ts'}"/>
+/// <reference path="${'./node_modules/@cocos/creator-types/engine/cc.editor.d.ts'}"/>\n
 ${fse.readFileSync(ccTemplatePath)}\n
 `
             .replace(/\\/g, '\\\\'),

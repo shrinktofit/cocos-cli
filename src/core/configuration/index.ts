@@ -6,8 +6,8 @@ import { configurationManager } from './script/manager';
 export * from './migration';
 
 export {
-    ConfigurationScope,
-    IBaseConfiguration,
+    type ConfigurationScope,
+    type IBaseConfiguration,
     configurationRegistry,
     configurationManager,
 };

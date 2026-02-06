@@ -20,7 +20,9 @@
             "./",
             "../../../node_modules/@types"
         ],
-        "types": []
+        "types": [
+          "node",
+        ],
     },
     "include": [
         "./src/**/*.ts",

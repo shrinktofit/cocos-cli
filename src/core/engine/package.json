@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@cocos/asset-db": "catalog:cocos-cli",
+    "lodash": "catalog:cocos-cli"
+  },
+  "devDependencies": {
+    "@types/lodash": "catalog:cocos-cli"
+  }
+}

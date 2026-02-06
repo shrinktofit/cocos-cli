@@ -15,7 +15,7 @@ export async function convertTGA(data: Buffer): Promise<{ extName: string; data:
     tga.load(data);
     const imageData = tga.getImageData();
     const png = new PNG({ width: imageData.width, height: imageData.height });
-    png.data = Buffer.from(imageData.data);
+    png.data = Buffer.from(imageData.data as any);
     return await savePNGObject(png);
 }
 

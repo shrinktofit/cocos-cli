@@ -202,6 +202,7 @@ class ScriptManager {
                 const packerDriver = PackerDriver.getInstance();
                 const serializedPackLoaderContext = packerDriver.getQuickPackLoaderContext('editor')!.serialize();
                 const quickPackLoaderContext = QuickPackLoaderContext.deserialize(serializedPackLoaderContext);
+                // @ts-expect-error
                 const { loadDynamic } = await import('cc/preload');
 
                 const cceModuleMap = PackerDriver.queryCCEModuleMap();

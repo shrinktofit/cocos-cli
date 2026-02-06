@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "@babel/core": "catalog:cocos-cli",
+    "@babel/preset-env": "catalog:cocos-cli",
+    "@cocos/ccbuild": "catalog:cocos-cli",
+    "@cocos/creator-programming-common": "catalog:cocos-cli",
+    "fast-glob": "catalog:cocos-cli",
+    "globby": "^14.1.0",
+    "json5": "catalog:cocos-cli",
+    "lodash": "catalog:cocos-cli",
+    "minimatch": "catalog:cocos-cli",
+    "rollup": "^4.27.4",
+    "sharp": "catalog:cocos-cli"
+  },
+  "devDependencies": {
+    "@types/babel__core": "catalog:cocos-cli",
+    "@types/babel__preset-env": "catalog:cocos-cli"
+  }
+}

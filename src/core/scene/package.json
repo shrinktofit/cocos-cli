@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@cocos/creator-programming-quick-pack": "catalog:cocos-cli",
+    "@cocos/lib-programming": "catalog:cocos-cli"
+  }
+}

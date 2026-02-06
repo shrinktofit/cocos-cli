@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "@cocos/asset-db": "catalog:cocos-cli",
+    "@cocos/ccbuild": "catalog:cocos-cli",
+    "@cocos/creator-programming-common": "catalog:cocos-cli",
+    "@cocos/creator-programming-import-maps": "catalog:cocos-cli",
+    "@cocos/creator-programming-mod-lo": "catalog:cocos-cli",
+    "@cocos/creator-programming-quick-pack": "catalog:cocos-cli",
+    "@cocos/lib-programming": "catalog:cocos-cli",
+    "json5": "catalog:cocos-cli",
+    "minimatch": "catalog:cocos-cli",
+    "node-uuid": "catalog:cocos-cli",
+    "winston": "^3.18.3"
+  },
+  "devDependencies": {
+    "@types/minimatch": "catalog:cocos-cli",
+    "@types/node-uuid": "catalog:cocos-cli"
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "eol": "catalog:cocos-cli"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "dependencies": {
+    "@babel/core": "catalog:cocos-cli",
+    "@cocos/asset-db": "catalog:cocos-cli",
+    "@cocos/data-uri": "^1.0.6",
+    "@cocos/fbx-gltf-conv": "^1.0.0-alpha.49.editor.1",
+    "cc": "workspace:cocos-cli-cc",
+    "draco3dgltf": "^1.5.7",
+    "eol": "catalog:cocos-cli",
+    "fast-glob": "catalog:cocos-cli",
+    "gl": "^9.0.0-rc.8",
+    "glsl-parser": "^2.0.1",
+    "glsl-tokenizer": "^2.1.5",
+    "gltf-validator": "^2.0.0-dev.2.7",
+    "js-yaml": "^4.1.0",
+    "json5": "catalog:cocos-cli",
+    "lodash": "catalog:cocos-cli",
+    "meshopt_encoder": "^1.0.3",
+    "minimatch": "catalog:cocos-cli",
+    "pngjs": "^3.4.0",
+    "psd.js": "^3.9.2",
+    "rimraf": "^2.7.1",
+    "sharp": "catalog:cocos-cli",
+    "tga-js": "^1.1.1",
+    "tmp": "^0.0.33",
+    "urijs": "^1.19.11",
+    "xmldom": "^0.1.31"
+  },
+  "devDependencies": {
+    "@types/babel__core": "catalog:cocos-cli",
+    "@types/lodash": "catalog:cocos-cli",
+    "@types/minimatch": "catalog:cocos-cli",
+    "@types/pngjs": "^3.4.2",
+    "@types/rimraf": "^2.0.5",
+    "@types/tmp": "^0.0.33",
+    "@types/urijs": "^1.19.25",
+    "@types/xmldom": "^0.1.34"
+  }
+}

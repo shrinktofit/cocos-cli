@@ -258,6 +258,7 @@ class EngineManager implements IEngine {
      * @param onAfterGameInit - 在初始化之后需要做的工作
      */
     async initEngine(info: IInitEngineInfo, onBeforeGameInit?: () => Promise<void>, onAfterGameInit?: () => Promise<void>) {
+        // @ts-expect-error
         const { default: preload } = await import('cc/preload');
         await this.importEditorExtensions();
         await preload({

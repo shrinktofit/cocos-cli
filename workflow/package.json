@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "typescript-json-schema": "^0.65.1"
+  }
+}

@@ -1,6 +1,12 @@
 {
-  "name": "@base/cc",
+  "name": "cocos-cli-cc",
   "version": "1.0.0",
   "main": "index.js",
-  "types": "./cc.d.ts"
+  "types": "./cc.d.ts",
+  "dependencies": {
+    "sharp": "catalog:cocos-cli"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:"
+  }
 }

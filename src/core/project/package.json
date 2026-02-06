@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "@types/node-uuid": "catalog:cocos-cli"
+  },
+  "dependencies": {
+    "node-uuid": "catalog:cocos-cli"
+  }
+}

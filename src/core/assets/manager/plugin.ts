@@ -123,7 +123,9 @@ class PluginManager extends EventEmitter {
         if (registerInfo.script) {
             try {
                 const mod = require(registerInfo.script);
-                mod.unload && mod.unload();
+                if ('unload' in mod && typeof mod.unload === 'function') {
+                    mod.unload();
+                }
             } catch (error) {
                 console.warn(error);
             }

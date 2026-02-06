@@ -1,0 +1,13 @@
+{
+  "devDependencies": {
+    "@types/node-uuid": "catalog:cocos-cli"
+  },
+  "dependencies": {
+    "consola": "^3.4.2",
+    "node-uuid": "catalog:cocos-cli",
+    "ora": "catalog:cocos-cli",
+    "pino": "^10.0.0",
+    "pino-transport-rotating-file": "^1.2.0",
+    "strip-ansi": "catalog:cocos-cli"
+  }
+}
