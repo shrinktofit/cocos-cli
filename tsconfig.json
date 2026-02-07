@@ -25,10 +25,8 @@
         ]
     },
     "include": [
-        "src/core/assets/@types/**/*",
-        "src/core/assets/asset-handler/**/*",
-        "src/core/assets/effect-compiler/**/*",
-        "src/core/assets/manager/**/*",
-        "src/core/scripting/utils/**/*",
+        "src/core/assets/**/*",
+        "src/core/configuration/**/*",
+        "src/core/scripting/**/*",
     ],
 }

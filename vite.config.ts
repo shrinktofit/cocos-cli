@@ -2,6 +2,8 @@ import { isAbsolute, join, normalize, relative } from "node:path";
 import { Plugin } from "vite";
 import { defineConfig } from "vite";
 import { builtinModules } from 'node:module';
+import dts from 'vite-plugin-dts'
+import { readdirSync } from "node:fs";
 
 export default defineConfig({
   build: {
@@ -9,7 +11,10 @@ export default defineConfig({
     emptyOutDir: true,
     lib: {
       entry: {
-        'asset-db': './src/core/assets/index.ts',
+        'core/assets/index': './src/core/assets/index.ts',
+        'core/base/console': './src/core/base/console.ts',
+        'core/configuration/index': './src/core/configuration/index.ts',
+        'core/scripting/packer-driver/asset-db-interop': './src/core/scripting/packer-driver/asset-db-interop.ts',
       },
       formats: ['cjs'],
     },
@@ -17,8 +22,8 @@ export default defineConfig({
       external: [
         /^node:.+/,
         ...builtinModules,
-        'cc',
-        /^cc\/.+/,
+        // 'cc',
+        // /^cc\/.+/,
 
         /.+[/\\]node_modules[/\\].+/,
         /^@babel\/.+/,
@@ -66,24 +71,42 @@ export default defineConfig({
   },
 
   plugins: [
+    ccModule(),
     cliModule(),
     globalModule(),
+    dts(),
   ],
 });
 
+const sourceRoot = join(__dirname, 'src');
+
+const predefinedPartitionIds: Record<string, string> = {};
+predefinedPartitionIds['i18n'] = 'i18n';
+for (const id of readdirSync(join(sourceRoot, 'core'))) {
+  predefinedPartitionIds[join('core', id)] = id;
+}
+console.log(`Predefined partition ids: ${JSON.stringify(predefinedPartitionIds, undefined, 2)}`);
+
 function getCliModulePartition(id: string) {
-  const rel = relative(join(__dirname, 'src/core'), id).replace(/\\/g, '/');
+  const rel = relative(sourceRoot, id);
   if (isAbsolute(rel) || /^\.\.[/\\]/.test(rel)) {
     return;
   }
-  const normalized = rel.replaceAll('\\', '/');
-  const match = normalized.match(/^(.+?)\/(.+)$/);
-  if (!match) {
+  let partitionId = '';
+  let relativePath = '';
+  for (const [key, value] of Object.entries(predefinedPartitionIds)) {
+    if (rel.startsWith(key)) {
+      partitionId = value;
+      relativePath = rel.slice(key.length).replace(/^[/\\]/, '').replace(/\\/g, '/');
+      break;
+    }
+  }
+  if (!partitionId) {
     return;
   }
   return {
-    partitionId: match[1],
-    relativePath: match[2],
+    partitionId,
+    relativePath,
   };
 }
 
@@ -93,6 +116,34 @@ function stringifyPartition(partition: { partitionId: string, relativePath: stri
 
 function stringifyPartitionedAs(partition?: { partitionId: string, relativePath: string }) {
   return partition ? `partitioned as ${stringifyPartition(partition)}` : 'not partitioned';
+}
+
+function ccModule(): Plugin {
+  const proxyModulePrefix = '\cli-cc-module:';
+  return {
+    name: 'cli-cc-module',
+
+    enforce: 'pre',
+
+    async resolveId(source, importer, opts, ...args) {
+      if (source === 'cc' || source.startsWith('cc/')) {
+        return {
+          id: `${proxyModulePrefix}${source}`,
+          syntheticNamedExports: true,
+        };
+      }
+    },
+
+    async load(id, opts) { 
+      if (id.startsWith(proxyModulePrefix)) {
+        const moduleId = id.slice(proxyModulePrefix.length);
+        return `` +
+          `export default ${generateCodeRequiringCliModule(moduleId)};\n` +
+          ``;
+      }
+      return null;
+    },
+  };
 }
 
 function cliModule(): Plugin {
@@ -138,7 +189,9 @@ function cliModule(): Plugin {
     async load(id, opts) { 
       if (id.startsWith(proxyModulePrefix)) {
         const [partitionId, relativePath] = id.slice(proxyModulePrefix.length).split(':');
-        return `export default { __PARTITION__: ${JSON.stringify(partitionId)}, __${partitionId}__: ${JSON.stringify(relativePath)} };`;
+        return `` +
+          `export default ${generateCodeRequiringCliModule(`${partitionId}:${relativePath}`)};\n` +
+          ``;
       }
       return null;
     },
@@ -171,10 +224,13 @@ function globalModule(): Plugin {
 
     async load(id, opts) { 
       if (id.startsWith(proxyModulePrefix)) {
-        return `export default { __global__: 'world' };`;
+        return `export default ${generateCodeRequiringCliModule('global')};\n`;
       }
       return null;
     },
   };
 }
 
+function generateCodeRequiringCliModule(moduleId: string) {
+  return `__require_cli_module__(${JSON.stringify(moduleId)})`;
+}

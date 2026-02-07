@@ -1213,7 +1213,16 @@ const miscChecks = (() => {
 })();
 
 const finalTypeCheck = (() => {
-    let gl = require('gl')(300, 150, { preserveDrawingBuffer: true });
+    let gl;
+    if (typeof document === 'object' && document) {
+      const canvas = document.createElement('canvas');
+      gl = canvas.getContext("webgl", {depth: true, stencil: true});
+      if (!gl) {
+        throw 'EFX2403: failed to create webgl context';
+      }
+    } else {
+      throw new Error(`don't know how to create gl context`);
+    }
     const supportedExtensions = gl.getSupportedExtensions();
     for (let i = 0; i !== supportedExtensions.length; ++i) {
         gl.getExtension(supportedExtensions[i]);
