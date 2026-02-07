@@ -738,6 +738,8 @@ class AssetHandlerManager {
 
 }
 
+export type { AssetHandlerManager };
+
 const assetHandlerManager = new AssetHandlerManager();
 
 export default assetHandlerManager;

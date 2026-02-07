@@ -55,6 +55,10 @@ class AssetManager extends EventEmitter {
         return assetHandlerManager.getEffectBinPath();
     };
 
+    get assetHandlerManager() {
+        return assetHandlerManager;
+    }
+
     url2uuid(url: string) {
         return url2uuid(url);
     }
@@ -167,6 +171,8 @@ export interface TypedAssetManager extends EventEmitter {
     getCreateMap: typeof assetHandlerManager.getCreateMap;
     queryAssetUserDataConfig: typeof assetHandlerManager.queryUserDataConfig;
     getEffectBinPath: typeof assetHandlerManager.getEffectBinPath;
+
+    readonly assetHandlerManager: typeof assetHandlerManager;
 
     url2uuid(url: string): string;
     url2path(url: string): string;
